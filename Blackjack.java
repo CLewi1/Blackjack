@@ -66,23 +66,19 @@ public class Blackjack {
         String dealerSuit2 = suits[dSuit2];
 
         // Print dealer cards ( if value is 11, print Ace )
+        System.out.println("Dealer Hand: ");
         if( dealerCard1 == 11 | dealerCard1 == 1) {
             System.out.printf("A %s%n", dealerSuit1);
         }
         else {
             System.out.printf("%d %s%n", dealerCard1, dealerSuit1);
         }
-        if( dealerCard2 == 11 | dealerCard2 == 1) {
-            System.out.printf("A %s%n", dealerSuit2);
-        }
-        else {
-            System.out.printf("%d %s%n", dealerCard2, dealerSuit2);
-        }
+        System.out.println("Hidden");
 
 
         // Dealer hand total
         int dTotal = dealerCard1 + dealerCard2;
-        System.out.printf("Value: %d%n", dTotal);
+        System.out.println();
         
 
 
