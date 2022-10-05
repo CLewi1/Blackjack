@@ -1,3 +1,4 @@
+import java.net.SocketPermission;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -80,8 +81,36 @@ public class Blackjack {
         int dTotal = dealerCard1 + dealerCard2;
         System.out.println();
         
-
-
+        // User picks Hit or stand
+        boolean repeat = true;
+        while (repeat) {
+            System.out.println("Please choose 'Hit' or 'Stand':");
+            String playerOption = input.nextLine();
+            System.out.println();
+            
+            // If player chooses hit, deal extra card
+            if ( playerOption.toLowerCase().equals("h") || playerOption.toLowerCase().equals("hit")) {
+                int playerCard3 = rand.nextInt(11) + 1;
+                int pSuit3 = rand.nextInt(suits.length);
+                String playerSuit3 = suits[pSuit3];
+                System.out.printf("%d %s%n", playerCard3, playerSuit3);
+                pTotal += playerCard3;
+                System.out.printf("Your hands value: %d%n", pTotal);
+                System.out.println();
+                if ( pTotal > 21 ) {
+                    System.out.println("You busted! Dealer wins.");
+                    input.close();
+                    return;
+                }
+            }
+            else if ( playerOption.toLowerCase().equals("s") || playerOption.toLowerCase().equals("stand")) {
+                System.out.println(pTotal);
+                repeat = false;
+            }
+            else {
+                System.out.println("Please enter hit or stand.");
+            }
+        }
 
         input.close();
 
