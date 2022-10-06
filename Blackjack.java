@@ -93,7 +93,7 @@ public class Blackjack {
                 int playerCard3 = rand.nextInt(11) + 1;
                 int pSuit3 = rand.nextInt(suits.length);
                 String playerSuit3 = suits[pSuit3];
-                System.out.printf("%d %s%n", playerCard3, playerSuit3);
+                System.out.printf("Dealt: %d %s%n", playerCard3, playerSuit3);
                 pTotal += playerCard3;
                 System.out.printf("Your hands value: %d%n", pTotal);
                 System.out.println();
@@ -104,14 +104,41 @@ public class Blackjack {
                 }
             }
             else if ( playerOption.toLowerCase().equals("s") || playerOption.toLowerCase().equals("stand")) {
-                System.out.println(pTotal);
                 repeat = false;
             }
             else {
                 System.out.println("Please enter hit or stand.");
             }
         }
-
+        while ( dTotal < 17 && dTotal < 21 ) {
+            int dealerCard3 = rand.nextInt(11) + 1;
+            int dSuit3 = rand.nextInt(suits.length);
+            String dealerSuit3 = suits[dSuit3];
+            dTotal += dealerCard3;
+            System.out.println("Dealer's hand:");
+            System.out.printf("%d %s%n", dealerCard1, dealerSuit1);
+            System.out.printf("%d %s%n", dealerCard2, dealerSuit2);
+            System.out.printf("%d %s%n", dealerCard3, dealerSuit3);
+            System.out.printf("Value: %d%n", dTotal);
+        }
+        if ( dTotal > 21 ) {
+            System.out.println("Dealer busted! You win!");
+            input.close();
+            return;
+        }       
+        System.out.println("Final Results:");
+        System.out.printf("Your Hand: %d%n", pTotal);
+        System.out.printf("Dealer Hand: %d%n", dTotal);
+        
+        if ( (dTotal > pTotal) && (dTotal <= 21) ) {
+            System.out.println("Dealer Wins!");
+        }
+        if ( (dTotal < pTotal) && (dTotal <= 21) ) {
+            System.out.println("You Win!");
+        }
+        if ( (dTotal == pTotal) && (dTotal <= 21) ) {
+            System.out.println("Its a tie!");
+        }
         input.close();
 
 
