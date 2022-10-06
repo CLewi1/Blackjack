@@ -120,6 +120,7 @@ public class Blackjack {
             System.out.printf("%d %s%n", dealerCard2, dealerSuit2);
             System.out.printf("%d %s%n", dealerCard3, dealerSuit3);
             System.out.printf("Value: %d%n", dTotal);
+            System.out.println();
         }
         if ( dTotal > 21 ) {
             System.out.println("Dealer busted! You win!");
