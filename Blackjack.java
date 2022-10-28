@@ -169,4 +169,8 @@ public class Blackjack {
 
         return Arrays.asList(dealerCard1, dealerSuit1, dealerCard2, dealerSuit2, dTotal);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8636960 (removed example output)
