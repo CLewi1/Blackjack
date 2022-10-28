@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,83 +8,29 @@ public class Blackjack {
         Scanner input = new Scanner(System.in);
         Random rand = new Random();
 
-
-
-        int numGames = 1;
+        System.out.println("How many games would you like to play?");
+        int numGames = input.nextInt();
         int currentGame = 1;
         
         while (currentGame <= numGames) {
-
-            for (int i = 0; i < 20; i++) {
-                System.out.printf("*");
-            }
-            System.out.println();
-            System.out.printf("Game %d of %d%n", currentGame, numGames);
-            for (int i = 0; i < 20; i++) {
-                System.out.printf("*");
-            }
-            System.out.println();
+            initGame(currentGame, numGames);
 
             // Array of suits
             String[] suits = {"of Hearts", "of Diamonds", "of Clubs", "of Spades"};
-
-            // First Player cards and total
-            int playerCard1 = rand.nextInt(11) + 1;
-            int playerCard2 = rand.nextInt(11) + 1;
-            // Player suits
-            int pSuit1 = rand.nextInt(suits.length);
-            int pSuit2 = rand.nextInt(suits.length);
-            String playerSuit1 = suits[pSuit1];
-            String playerSuit2 = suits[pSuit2];
-
-            // Print Player cards ( if value is 11, print Ace )
-            System.out.println("Your Hand:");
-            if( playerCard1 == 11 | playerCard1 == 1) {
-                System.out.printf("A %s%n", playerSuit1);
-            }
-            else {
-                System.out.printf("%d %s%n", playerCard1, playerSuit1);
-            }
-            if( playerCard2 == 11 | playerCard2 == 1) {
-                System.out.printf("A %s%n", playerSuit2);
-            }
-            else {
-                System.out.printf("%d %s%n", playerCard2, playerSuit2);
-            }
-
-            // Player hand total
-            int pTotal = playerCard1 + playerCard2;
-            System.out.printf("Value: %d%n", pTotal);
-            System.out.println();
-
-
-
-
-
-            // First dealer cards and total
-            int dealerCard1 = rand.nextInt(11) + 1;
-            int dealerCard2 = rand.nextInt(11) + 1;
-            // Dealer suits
-            int dSuit1 = rand.nextInt(suits.length);
-            int dSuit2 = rand.nextInt(suits.length);
-            String dealerSuit1 = suits[dSuit1];
-            String dealerSuit2 = suits[dSuit2];
-
-            // Print dealer cards ( if value is 11, print Ace )
-            System.out.println("Dealer Hand: ");
-            if( dealerCard1 == 11 | dealerCard1 == 1) {
-                System.out.printf("A %s%n", dealerSuit1);
-            }
-            else {
-                System.out.printf("%d %s%n", dealerCard1, dealerSuit1);
-            }
-            System.out.println("Hidden");
-
-
-            // Dealer hand total
-            int dTotal = dealerCard1 + dealerCard2;
-            System.out.println();
             
+            // List of player options
+            List<Object> player = playerHand(suits, rand);
+            int pTotal = (int) player.get(4);
+
+            // List of dealer options
+            List<Object> dealer = dealerHand(suits, rand);
+            int dealerCard1 = (int) dealer.get(0);
+            String dealerSuit1 = (String) dealer.get(1);
+            int dealerCard2 = (int) dealer.get(2);
+            String dealerSuit2 = (String) dealer.get(3);
+            int dTotal = (int) dealer.get(4);
+
+
             // User picks Hit or stand
             boolean repeat = true;
             while (repeat) {
@@ -147,34 +95,78 @@ public class Blackjack {
 
         }
         input.close();
+        System.out.println();
+        System.out.println("Thanks for playing!");
 
     }
+
+    public static void checkAce(int card, String suit) {
+        if( card == 11 | card == 1) {
+            System.out.printf("A %s%n", suit);
+        }
+        else {
+            System.out.printf("%d %s%n", card, suit);
+        }
+    }
+
+    public static void initGame(int current, int num) {
+        System.out.println();
+        System.out.println();
+        for (int i = 0; i < 20; i++) {
+            System.out.printf("*");
+        }
+        System.out.println();
+        System.out.printf("Game %d of %d%n", current, num);
+        for (int i = 0; i < 20; i++) {
+            System.out.printf("*");
+        }
+        System.out.println();
+    }
+
+    public static List<Object> playerHand(String[] suit, Random rand) {
+        
+        // First Player cards and total
+        int playerCard1 = rand.nextInt(11) + 1;
+        int playerCard2 = rand.nextInt(11) + 1;
+        // Player suits
+        int pSuit1 = rand.nextInt(suit.length);
+        int pSuit2 = rand.nextInt(suit.length);
+        String playerSuit1 = suit[pSuit1];
+        String playerSuit2 = suit[pSuit2];
+
+        // Print Player cards ( if value is 11, print Ace )
+        System.out.println("Your Hand:");
+        checkAce(playerCard1, playerSuit1);
+        checkAce(playerCard2, playerSuit2);
+
+        // Player hand total
+        int pTotal = playerCard1 + playerCard2;
+        System.out.printf("Value: %d%n", pTotal);
+        System.out.println();
+
+        return Arrays.asList(playerCard1, playerSuit1, playerCard2, playerSuit2, pTotal);
+    }
+
+    public static List<Object> dealerHand(String[] suit, Random rand) {
+        // First dealer cards and total
+        int dealerCard1 = rand.nextInt(11) + 1;
+        int dealerCard2 = rand.nextInt(11) + 1;
+        // Dealer suits
+        int dSuit1 = rand.nextInt(suit.length);
+        int dSuit2 = rand.nextInt(suit.length);
+        String dealerSuit1 = suit[dSuit1];
+        String dealerSuit2 = suit[dSuit2];
+
+        // Print dealer cards ( if value is 11, print Ace )
+        System.out.println("Dealer Hand: ");
+        checkAce(dealerCard1, dealerSuit1);
+        System.out.println("Hidden");
+
+
+        // Dealer hand total
+        int dTotal = dealerCard1 + dealerCard2;
+        System.out.println();
+
+        return Arrays.asList(dealerCard1, dealerSuit1, dealerCard2, dealerSuit2, dTotal);
+    }
 }
-
-// Example output
-
-// How many games do you want to play? 1
-// 
-// ******************************
-// Game 1 of 1
-// ******************************
-// Your hand:
-// K of diamonds
-// 9 of hearts
-// Value: 19
-// 
-// Dealer's hand:
-// hidden
-// A of hearts
-// 
-// Please choose 'Hit' or 'Stand': h
-// 
-// Your hand:
-// K of diamonds
-// 9 of hearts
-// J of spades
-// Value: 29
-// 
-// You busted. Dealer wins! 😭
-// 
-// Thanks for playing!
