@@ -57,7 +57,7 @@ public class Blackjack {
                     int playerCard3 = rand.nextInt(11) + 1;
                     int pSuit3 = rand.nextInt(suits.length);
                     String playerSuit3 = suits[pSuit3];
-                    System.out.printf("Dealt: %s%n", playerCard3, playerSuit3);
+                    System.out.printf("Dealt: %d %s%n", playerCard3, playerSuit3);
                     pTotal += playerCard3;
                     System.out.printf("Your hands value: %d%n", pTotal);
                     System.out.println();
@@ -87,7 +87,6 @@ public class Blackjack {
             }
             if ( dTotal > 21 ) {
                 System.out.println("Dealer busted! You win!");
-                input.close();
                 break;
             }       
             System.out.println("Final Results:");
