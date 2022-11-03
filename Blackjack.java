@@ -82,13 +82,13 @@ public class Blackjack {
             System.out.printf("Your Hand: %d%n", pTotal);
             System.out.printf("Dealer Hand: %d%n", dTotal);
             
-            if ( (dTotal > pTotal) && (dTotal <= 21) ) {
+            if ( (dTotal > pTotal) && (dTotal <= 21) && (pTotal < 21) ) {
                 System.out.println("Dealer Wins!");
             }
-            if ( (dTotal < pTotal) && (dTotal <= 21) ) {
+            if ( (dTotal < pTotal) && (dTotal <= 21) && (pTotal < 21) ) {
                 System.out.println("You Win!");
             }
-            if ( (dTotal == pTotal) && (dTotal <= 21) ) {
+            if ( (dTotal == pTotal) && (dTotal <= 21) && (pTotal < 21) ) {
                 System.out.println("Its a tie!");
             }
             
