@@ -12,6 +12,8 @@ public class Blackjack {
         int numGames = input.nextInt();
         int currentGame = 1;
         
+        input.nextLine();
+
         while (currentGame <= numGames) {
             initGame(currentGame, numGames);
 
@@ -32,9 +34,20 @@ public class Blackjack {
 
 
             input.nextLine();
-            
+
             boolean repeat = true;
             while (repeat) {
+                
+                if ( pTotal > 21 ) {
+                    System.out.println("You busted! Dealer wins.");
+                    break;
+                }
+                else if ( pTotal == 21 ) {
+                    System.out.println("Blackjack!");
+                }
+                
+                
+                
                 System.out.println("Please choose 'Hit' or 'Stand':");
                 String playerOption = input.nextLine();
                 System.out.println();
@@ -44,14 +57,13 @@ public class Blackjack {
                     int playerCard3 = rand.nextInt(11) + 1;
                     int pSuit3 = rand.nextInt(suits.length);
                     String playerSuit3 = suits[pSuit3];
-                    System.out.printf("Dealt: %d %s%n", playerCard3, playerSuit3);
+                    System.out.printf("Dealt: %s%n", playerCard3, playerSuit3);
                     pTotal += playerCard3;
                     System.out.printf("Your hands value: %d%n", pTotal);
                     System.out.println();
                     if ( pTotal > 21 ) {
                         System.out.println("You busted! Dealer wins.");
-                        input.close();
-                        return;
+                        break;
                     }
                 }
                 else if ( playerOption.toLowerCase().equals("s") || playerOption.toLowerCase().equals("stand")) {
@@ -67,16 +79,16 @@ public class Blackjack {
                 String dealerSuit3 = suits[dSuit3];
                 dTotal += dealerCard3;
                 System.out.println("Dealer's hand:");
-                System.out.printf("%d %s%n", dealerCard1, dealerSuit1);
-                System.out.printf("%d %s%n", dealerCard2, dealerSuit2);
-                System.out.printf("%d %s%n", dealerCard3, dealerSuit3);
+                checkAce(dealerCard1, dealerSuit1);
+                checkAce(dealerCard2, dealerSuit2);
+                checkAce(dealerCard3, dealerSuit3);
                 System.out.printf("Value: %d%n", dTotal);
                 System.out.println();
             }
             if ( dTotal > 21 ) {
                 System.out.println("Dealer busted! You win!");
                 input.close();
-                return;
+                break;
             }       
             System.out.println("Final Results:");
             System.out.printf("Your Hand: %d%n", pTotal);
